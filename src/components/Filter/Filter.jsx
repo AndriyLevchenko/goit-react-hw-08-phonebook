@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { nanoid } from 'nanoid';
-import { inputFilterForm } from 'redux/filterSlice';
-import { selectFilter } from 'redux/selectors';
+import { inputFilterForm } from 'redux/contacts/filterSlice';
+import { selectFilter } from 'redux/contacts/selectors';
 
 import css from 'components/Filter/Filter.module.css';
 

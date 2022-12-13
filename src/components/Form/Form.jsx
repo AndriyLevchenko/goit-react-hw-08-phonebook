@@ -1,7 +1,7 @@
 import {useState} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addContact } from 'redux/createApiSlice';
-import { selectContacts } from 'redux/selectors';
+import { addContact } from 'redux/contacts/contactsApi';
+import { selectContacts } from 'redux/contacts/selectors';
 import css from 'components/Form/Form.module.css';
 
 export const Form = () => {

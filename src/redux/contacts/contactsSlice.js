@@ -1,5 +1,5 @@
 import { createSlice, isAnyOf } from '@reduxjs/toolkit';
-import { fetchContacts, addContact, deleteContact } from './createApiSlice';
+import { fetchContacts, addContact, deleteContact } from './contactsApi';
 
 const extraActions = [fetchContacts, addContact, deleteContact];
 const getActions = type => extraActions.map(action => action[type]);

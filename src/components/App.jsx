@@ -1,31 +1,72 @@
-import { useEffect } from 'react';
+import { Routes, Route, Navigate } from 'react-router-dom';
+import { lazy, Suspense, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchContacts } from 'redux/createApiSlice';
-import { selectError, selectIsLoading } from 'redux/selectors';
+import { refreshUser } from 'redux/auth/operations';
+import { PrivateRoute } from './Routes/PrivateRoute';
+import { PublicRoute } from './Routes/PublicRoute';
+import { selectIsRefreshing } from 'redux/auth/selectors';
+import { Toaster } from 'react-hot-toast';
+import GlobalStyles from '@mui/material/GlobalStyles';
+import { AppCss } from './AppCss';
 
-import { Form } from 'components/Form/Form';
-import { Filter } from 'components/Filter/Filter';
-import { ListContacts } from './ListContacts/ListContacts';
-import css from 'components/App.module.css';
+import { Loader } from './Loader/Loader';
 
-export const App = () => {
+const AppBar = lazy(() => import('./AppBar/AppBar'));
+const Contacts = lazy(() => import('../pages/Contacts/Contacts'));
+const Register = lazy(() => import('../pages/Register/Register'));
+const Login = lazy(() => import('../pages/Login/Login'));
+const Home = lazy(() => import('../pages/Home/Home'));
+
+
+export default function App() {
+
   const dispatch = useDispatch();
-  const isLoading = useSelector(selectIsLoading);
-  const error = useSelector(selectError);
+  const refresh = useSelector(selectIsRefreshing);
 
   useEffect(() => {
-    dispatch(fetchContacts());
+    dispatch(refreshUser());
   }, [dispatch]);
 
   return (
-    <div>
-      <h2 className={css.title}>Phonebook</h2>
-      <Form />
-      <h2 className={css.title}>Contacts</h2>
-      <Filter />
-      {isLoading && !error && <b>Request in progress...</b>}
-      <ListContacts />
-    </div>
+    !refresh && (
+      <>
+        <Suspense fallback={<Loader />}>
+          <GlobalStyles styles={AppCss}/>
+          <AppBar />
+          <Toaster />
+          <Routes>
+            <Route>
+              <Route index element={<Home />} />
+              <Route
+                path="register"
+                element={
+                  <PublicRoute restricted>
+                    <Register />
+                  </PublicRoute>
+                }
+              />
+              <Route
+                path="login"
+                element={
+                  <PublicRoute restricted>
+                    <Login />
+                  </PublicRoute>
+                }
+              />
+              <Route
+                path="contacts"
+                element={
+                  <PrivateRoute>
+                    <Contacts />
+                  </PrivateRoute>
+                }
+              />
+              <Route path="*" element={<Navigate to="/" />} />
+            </Route>
+          </Routes>
+        </Suspense>
+      </>
+    )
   );
-}
+};
 
