@@ -10,7 +10,8 @@ const setAuthHeader = token => {
 const clearAuthHeader = () => {
   axios.defaults.headers.common.Authorization = '';
 };
-const register = createAsyncThunk(
+
+export const register = createAsyncThunk(
   'auth/register',
   async (credentials, thunkAPI) => {
     try {
@@ -22,7 +23,8 @@ const register = createAsyncThunk(
     }
   }
 );
-const logIn = createAsyncThunk(
+
+export const logIn = createAsyncThunk(
   'auth/login',
   async (credentials, thunkAPI) => {
     try {
@@ -38,7 +40,8 @@ const logIn = createAsyncThunk(
     }
   }
 );
-const logOut = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
+
+export const logOut = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
   try {
     await axios.post('/users/logout');
     clearAuthHeader();
@@ -46,7 +49,8 @@ const logOut = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
     return thunkAPI.rejectWithValue(error.message);
   }
 });
-const refreshUser = createAsyncThunk(
+
+export const refreshUser = createAsyncThunk(
   'auth/refresh',
   async (_, thunkAPI) => {
     const { token } = thunkAPI.getState().auth;
@@ -62,5 +66,3 @@ const refreshUser = createAsyncThunk(
     }
   }
 );
-
-export { register, logOut, logIn, refreshUser };

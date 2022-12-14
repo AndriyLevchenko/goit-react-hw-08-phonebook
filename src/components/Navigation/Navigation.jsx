@@ -1,20 +1,14 @@
-import { useSelector } from 'react-redux';
-import { HomePageLink } from './Navigation.styled';
-import { ContactsLink } from './Navigation.styled';
-import { selectIsLoggedIn } from 'redux/auth/selectors';
+import { useAuth } from 'hooks';
+import { StyledLink, Nav } from './Navigation.styled';
 
 export const Navigation = () => {
-  const isLoggedIn = useSelector(selectIsLoggedIn);
+  const { isLoggedIn } = useAuth();
   return (
-    <div>
-      <HomePageLink to="/home" >
-        Home page
-      </HomePageLink>
-      {isLoggedIn && (
-        <ContactsLink to="/contacts">
-          Contacts
-        </ContactsLink>
-      )}
-    </div>
+    <Nav>
+      <StyledLink to="/">
+        Home
+      </StyledLink>
+      {isLoggedIn && <StyledLink to="/contacts">Contacts</StyledLink>}
+    </Nav>
   );
 };
