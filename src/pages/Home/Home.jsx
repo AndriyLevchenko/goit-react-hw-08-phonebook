@@ -2,7 +2,7 @@ import { useSelector } from 'react-redux';
 import { selectIsLoggedIn } from 'redux/auth/selectors';
 import { HomePageContainer, WelcomeMessage, LoginLink, TextContainer, Text } from './Home.styled';
 
-export const HomePageView = () => {
+const Home = () => {
 
   const isLoggedIn = useSelector(selectIsLoggedIn);
 
@@ -28,3 +28,4 @@ export const HomePageView = () => {
     </main>
   );
 };
+export default Home;

@@ -1,13 +1,14 @@
 import { useDispatch } from 'react-redux';
 import { useState } from 'react';
-import { logIn } from 'redux/auth/operations';
+import { register } from 'redux/auth/operations';
+import toast from 'react-hot-toast';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+// import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
@@ -15,20 +16,27 @@ import { Link } from 'components/Navigation/Navigation.styled';
 
 const theme = createTheme();
 
-export const LoginView = () => {
+
+const Register = () => {
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
 
   const handleSubmit = e => {
     e.preventDefault();
-    dispatch(logIn({ email, password }));
+    if (name === '' || email === '' || password === '') {
+      toast.error('All fields must be fullfilled!')
+      return;
+    }
+    dispatch(register({ name, email, password }));
+    setName('');
     setEmail('');
     setPassword('');
-  };
-  
+    };
+    
   return (
-
+  
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
@@ -41,52 +49,71 @@ export const LoginView = () => {
           }}
         >
           <Avatar sx={{ m: 1, bgcolor: '#1976d2' }}>
-            <LockOutlinedIcon />
+            {/* <LockOutlinedIcon /> */}
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign in
+            Sign up
           </Typography>
           <Box
             component="form"
-            onSubmit={handleSubmit}
             noValidate
-            sx={{ mt: 1 }}
+            onSubmit={handleSubmit}
+            sx={{ mt: 3 }}
           >
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
-              autoFocus
-              value={email}
-              onChange={e => setEmail(e.currentTarget.value)}
-            />
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-              value={password}
-              onChange={e => setPassword(e.currentTarget.value)}
-            />
+            <Grid container spacing={2}>
+              <Grid item xs={12}>
+                <TextField
+                  autoComplete="given-name"
+                  name="name"
+                  required
+                  fullWidth
+                  id="name"
+                  label="Name"
+                  autoFocus
+                  value={name}
+                  onChange={e => setName(e.currentTarget.value)}
+                />
+              </Grid>
+
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  id="email"
+                  label="Email Address"
+                  name="email"
+                  autoComplete="email"
+                  value={email}
+                  onChange={e => setEmail(e.currentTarget.value)}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  name="password"
+                  label="Password"
+                  type="password"
+                  id="password"
+                  autoComplete="new-password"
+                  value={password}
+                  onChange={e => setPassword(e.currentTarget.value)}
+                />
+              </Grid>
+            </Grid>
             <Button
               type="submit"
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              Sign In
+              Sign Up
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link to="/register">{"Don't have an account? Sign Up"}</Link>
+                <Link to="/login" variant="body2">
+                  Already have an account? Sign in
+                </Link>
               </Grid>
             </Grid>
           </Box>
@@ -95,3 +122,5 @@ export const LoginView = () => {
     </ThemeProvider>
   );
 };
+
+export default Register;

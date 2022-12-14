@@ -4,7 +4,7 @@ import { Filter } from "components/Filter/Filter";
 import { Container } from "./Contacts.styled";
 import Typography from '@mui/material/Typography';
 
-export const ContactsView = () => {
+const Contacts = () => {
     return (
         <Container>
             <Form />
@@ -16,3 +16,4 @@ export const ContactsView = () => {
         </Container>
     )
 };
+export default Contacts;

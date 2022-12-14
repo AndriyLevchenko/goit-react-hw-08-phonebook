@@ -7,7 +7,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+// import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
@@ -15,7 +15,7 @@ import { Link } from 'components/Navigation/Navigation.styled';
 
 const theme = createTheme();
 
-export const LoginView = () => {
+const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
@@ -40,7 +40,7 @@ export const LoginView = () => {
           }}
         >
           <Avatar sx={{ m: 1, bgcolor: '#1976d2' }}>
-            <LockOutlinedIcon />
+            {/* <LockOutlinedIcon /> */}
           </Avatar>
           <Typography component="h1" variant="h5">
             Sign in
@@ -94,3 +94,5 @@ export const LoginView = () => {
     </ThemeProvider>
   );
 };
+
+export default Login;

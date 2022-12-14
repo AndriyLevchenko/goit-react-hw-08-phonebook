@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { selectUser } from 'redux/auth/selectors';
 import { logOut } from 'redux/auth/operations';
 import { selectIsLoggedIn } from 'redux/auth/selectors';
-import { AccountCircle } from '@mui/icons-material';
+// import { AccountCircle } from '@mui/icons-material';
 import { Box, IconButton, Menu, MenuItem, Typography } from '@mui/material';
 
 export const UserMenu = () => {
@@ -42,7 +42,7 @@ export const UserMenu = () => {
               marginLeft: '5px',
             }}
           >
-            <AccountCircle />
+            {/* <AccountCircle /> */}
           </IconButton>
           <Menu
             id="menu-appbar"
