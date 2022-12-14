@@ -18,7 +18,7 @@ export const Filter = () => {
             type="text"
             value={filter}
             name="filter"
-            placeholder="Please, enter the name you want to find"
+            placeholder="Filter Phonebook by name"
             onChange={e => dispatch(searchByName(e.target.value))}
           />
         </Label>
